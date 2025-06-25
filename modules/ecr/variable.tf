@@ -3,11 +3,6 @@ variable "ecr_repo_name" {
   type        = string
 }
 
-# variable "kms_key_id" {
-#   description = "The KMS key ID for encryption"
-#   type        = string
-# }
-
 variable "tags" {
   description = "Tags to apply to resources"
   type        = map(string)

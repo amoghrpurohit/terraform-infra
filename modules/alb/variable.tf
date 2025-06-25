@@ -3,14 +3,14 @@ variable "alb_name" {
   type        = string
 }
 
-variable "security_group_id" {
-  description = "Security group ID for the ALB"
-  type        = string
-}
-
-variable "subnet_ids" {
-  description = "List of subnet IDs for the ALB"
+variable "private_subnet_names" {
+  description = "List of Name tags for private subnets"
   type        = list(string)
+}
+ 
+variable "security_group_name" {
+  description = "The Name tag of the security group"
+  type        = string
 }
 
 variable "vpc_name" {
@@ -22,8 +22,14 @@ variable "tags" {
   description = "Tags to apply to resources"
   type        = map(string)
 }
-variable "alb_port" {
-  description = "Port for the ALB listener and target group"
+variable "alb_listener_port" {
+  description = "Port for the ALB listener (usually 443 for HTTPS)"
+  type        = number
+  default     = 443
+}
+ 
+variable "target_group_port" {
+  description = "Port for the target group (the port your ECS container listens on)"
   type        = number
   default     = 8443
 }

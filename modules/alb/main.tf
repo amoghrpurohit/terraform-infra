@@ -2,8 +2,8 @@ resource "aws_lb" "alb-main" {
   name               = var.alb_name
   internal           = true
   load_balancer_type = "application"
-  security_groups    = [var.security_group_id]
-  subnets            = var.subnet_ids
+  security_groups    = [data.aws_security_group.sg.id]
+  subnets            = [for s in data.aws_subnet.private_subnets : s.id]
   ip_address_type    = "ipv4"
 
   tags = var.tags
@@ -11,7 +11,7 @@ resource "aws_lb" "alb-main" {
 
 resource "aws_lb_target_group" "alb-tg" {
   name     = "${var.alb_name}-tg"
-  port     = var.alb_port
+  port     = var.target_group_port
   protocol = "HTTP" # Change to "HTTPS" if needed
   vpc_id   = data.aws_vpc.vpc.id
 
@@ -23,7 +23,7 @@ resource "aws_lb_target_group" "alb-tg" {
     matcher             = "200-399"
     interval            = 30
     timeout             = 5
-    healthy_threshold   = 2
+    healthy_threshold   = 5
     unhealthy_threshold = 2
   }
 
@@ -32,7 +32,7 @@ resource "aws_lb_target_group" "alb-tg" {
 
 resource "aws_lb_listener" "http" {
   load_balancer_arn = aws_lb.alb-main.arn
-  port              = var.alb_port
+  port              = var.alb_listener_port
   protocol          = "HTTPS" # Change to "HTTPS" if needed
 
   # Uncomment the following lines if using HTTPS

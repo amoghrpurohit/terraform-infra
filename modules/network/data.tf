@@ -21,35 +21,32 @@ data "aws_subnet" "private-subnets" {
  
 # Reference the existing security group by Name tag
 data "aws_security_group" "sg" {
-  filter {
-    name   = "tag:Name"
-    values = [var.security_group_name]
-  }
+  name = var.security_group_name
 }
  
 # Reference the existing Transit Gateway by Name tag
-data "aws_ec2_transit_gateway" "tgw" {
-  filter {
-    name   = "tag:Name"
-    values = [var.transit_gateway_name]
-  }
-}
+# data "aws_ec2_transit_gateway" "tgw" {
+#   filter {
+#     name   = "tag:Name"
+#     values = [var.transit_gateway_name]
+#   }
+# }
  
-data "aws_ec2_transit_gateway_vpc_attachment" "tgw_attachment" {
-  filter {
-    name   = "transit-gateway-id"
-    values = [data.aws_ec2_transit_gateway.tgw.id]
-  }
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.vpc.id]
-  }
-  # Optionally, filter by state
-  filter {
-    name   = "state"
-    values = ["available"]
-  }
-}
+# data "aws_ec2_transit_gateway_vpc_attachment" "tgw_attachment" {
+#   filter {
+#     name   = "transit-gateway-id"
+#     values = [data.aws_ec2_transit_gateway.tgw.id]
+#   }
+#   filter {
+#     name   = "vpc-id"
+#     values = [data.aws_vpc.vpc.id]
+#   }
+#   # Optionally, filter by state
+#   filter {
+#     name   = "state"
+#     values = ["available"]
+#   }
+# }
  
 # Reference the existing route tables by Name tag and VPC
 data "aws_route_table" "rtb" {
@@ -64,11 +61,4 @@ data "aws_route_table" "rtb" {
   }
 }
  
-# Reference the existing NAT Gateway by Name tag
-data "aws_nat_gateway" "ngw" {
-  filter {
-    name   = "tag:Name"
-    values = [var.nat_gateway_name]
-  }
-}
  

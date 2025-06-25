@@ -13,23 +13,24 @@ variable "security_group_name" {
   type        = string
 }
  
-variable "transit_gateway_name" {
-  description = "The Name tag of the transit gateway"
-  type        = string
-}
+# variable "transit_gateway_name" {
+#   description = "The Name tag of the transit gateway"
+#   type        = string
+# }
  
 variable "route_table_names" {
   description = "List of Name tags for route tables"
   type        = list(string)
 }
  
-variable "nat_gateway_name" {
-  description = "The Name tag of the NAT Gateway"
-  type        = string
-}
 variable "tags" {
   description = "Tags to apply to all resources"
   type        = map(string)
   default     = {}
 }
+
+# variable "aws_region" {
+#   description = "AWS region"
+#   type        = string
+# }
  

@@ -1,3 +1,8 @@
+variable "vpc_name" {
+  description = "The Name tag of the VPC"
+  type        = string
+}
+
 variable "ecs_cluster_name" {
   description = "The name of the ECS cluster"
   type        = string
@@ -21,13 +26,13 @@ variable "container_image" {
 variable "cpu" {
   description = "The amount of CPU to allocate to the task"
   type        = number
-  default     = 256
+  default     = 2048
 }
 
 variable "memory" {
   description = "The amount of memory to allocate to the task"
   type        = number
-  default     = 512
+  default     = 4096
 }
 
 variable "container_port" {
@@ -42,13 +47,23 @@ variable "desired_count" {
   default     = 1
 }
 
-variable "subnet_ids" {
-  description = "List of subnet IDs for ECS service"
+# variable "subnet_ids" {
+#   description = "List of subnet IDs for ECS service"
+#   type        = list(string)
+# }
+
+# variable "security_group_id" {
+#   description = "The security group ID for ECS service"
+#   type        = string
+# }
+
+variable "private_subnet_names" {
+  description = "List of Name tags for private subnets"
   type        = list(string)
 }
-
-variable "security_group_id" {
-  description = "The security group ID for ECS service"
+ 
+variable "security_group_name" {
+  description = "The Name tag of the security group"
   type        = string
 }
 
@@ -97,5 +112,9 @@ variable "tags" {
 
 variable "lb_listener_arn" {
   description = "The ARN of the ALB Listener"
+  type        = string
+}
+variable "aws_region" {
+  description = "AWS region"
   type        = string
 }

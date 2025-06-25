@@ -4,13 +4,12 @@ variable "tags" {
   type        = map(string)
 }
 
-# # Networking
-# variable "vpc_id" {
-#   description = "VPC ID"
-#   type        = string
-# }
+variable "aws_region" {
+  description = "AWS region"
+  type        = string
+}
 
-# Networking (use Name tags, not IDs)
+# Networking 
 variable "vpc_name" {
   description = "The Name tag of the VPC"
   type        = string
@@ -25,27 +24,32 @@ variable "security_group_name" {
   description = "The Name tag of the security group"
   type        = string
 }
- 
-variable "transit_gateway_name" {
-  description = "The Name tag of the transit gateway"
-  type        = string
-}
+
+# variable "transit_gateway_name" {
+#   description = "The Name tag of the transit gateway"
+#   type        = string
+# }
  
 variable "route_table_names" {
   description = "List of Name tags for route tables"
   type        = list(string)
 }
  
-variable "nat_gateway_name" {
-  description = "The Name tag of the NAT Gateway"
-  type        = string
-}
- 
-
 # ALB Configuration
 variable "alb_name" {
   description = "ALB name"
   type        = string
+}
+variable "alb_listener_port" {
+  description = "Port for the ALB listener (usually 443 for HTTPS)"
+  type        = number
+  default     = 443
+}
+ 
+variable "target_group_port" {
+  description = "Port for the target group (the port your ECS container listens on)"
+  type        = number
+  default     = 8443
 }
 
 # ECR Configuration
